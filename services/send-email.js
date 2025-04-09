@@ -27,16 +27,15 @@ export const sendEmail = ({ to, subject, content },cb) => {
         mailOptions.html = data;
     }
     
-    console.log({mailOptions});
     
 
     // Send email
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.log('Error occurred: ' + error.message);
+            // console.log('Error occurred: ' + error.message);
             cb(false)
         } else {
-            console.log('Email sent successfully: ' + info.response);
+            // console.log('Email sent successfully: ' + info.response);
             cb(true)
         }
     });

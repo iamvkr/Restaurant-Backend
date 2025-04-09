@@ -101,7 +101,6 @@ export async function cancelReservation(req, res, next) {
         return res.status(400).json({ message: 'Reservation Id is required!' });
     }
     const user = req.user;
-    console.log("user res:", user.reservations);
 
     try {
         // 1. get reservaion details
@@ -111,7 +110,6 @@ export async function cancelReservation(req, res, next) {
         }
 
         // check if reservation is made by same user
-        console.log("compare", user._id + " !== " + reservation.userId + "with:", String(user._id) !== String(reservation.userId));
 
         if (String(user._id) !== String(reservation.userId)) {
             return res.status(400).json({ message: 'Invalid user' });

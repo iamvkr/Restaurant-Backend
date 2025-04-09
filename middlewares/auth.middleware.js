@@ -2,7 +2,6 @@ import userModel from '../models/user.model.js';
 import adminModel from '../models/admin.model.js';
 import pkg from 'jsonwebtoken';
 const { verify } = pkg
-// import { findOne } from '../models/blackListToken.model';
 
 
 export async function authUser(req, res, next) {
@@ -12,12 +11,6 @@ export async function authUser(req, res, next) {
     if (!token) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
-
-
-    // const isBlacklisted = await findOne({ token: token });
-    // if (isBlacklisted) {
-    //     return res.status(401).json({ message: 'Unauthorized' });
-    // }
 
     try {
         const decoded = verify(token, process.env.JWT_SECRET);
@@ -37,11 +30,6 @@ export async function authAdmin(req, res, next) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    // const isBlacklisted = await findOne({ token: token });
-    // if (isBlacklisted) {
-    //     return res.status(401).json({ message: 'Unauthorized' });
-    // }
-
     try {
         const decoded = verify(token, process.env.JWT_SECRET);
         const admin = await adminModel.findById(decoded._id)
@@ -49,8 +37,6 @@ export async function authAdmin(req, res, next) {
 
         return next()
     } catch (err) {
-        console.log(err);
-
         res.status(401).json({ message: 'Unauthorized' });
     }
 }
